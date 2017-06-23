@@ -1,7 +1,8 @@
 'use strict';
+const endConversation = require('./endConversation');
 
 module.exports = (session, f) => {
-    const actions = {
+    return {
         send(request, response) {
             const {sessionId, context, entities} = request;
             const {text} = response;
@@ -10,8 +11,8 @@ module.exports = (session, f) => {
                 f.txt(fbid, text);
                 return resolve();
             })
-        }
-    };
+        },
 
-    return actions
+        endConversation
+    };
 };

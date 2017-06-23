@@ -44,10 +44,16 @@ server.post('/', (req, res, next) => {
 
         if(message.text) {
             // Process the message here
-            console.log(message.text);
-            f.txt(sender, `You said ${message.text}`);
+            let sessionId = session.init(sender);
+            let {context} = session.get(sessionId);
+            // Run Wit actions
+            wit.runActions(sessionId, message.text, context)
+                .then(ctx => {
+                    // delete session if the conversation is over
+                    ctx.jobDone ? session.delete(sessionId): session.update(sessionId, ctx);
+                })
+                .catch(error => console.log(`Error: ${error}`))
         }
-
     });
 
     return next();
