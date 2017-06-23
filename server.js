@@ -20,7 +20,7 @@ const agenda = require('./agenda')(f);
 // Session
 const session = require('./session');
 // Actions
-const actions = require('./actions')(session, f);
+const actions = require('./actions')(session, f, agenda);
 
 // WIT.AI
 const Wit = require('node-wit').Wit;

@@ -1,7 +1,9 @@
 'use strict';
 const endConversation = require('./endConversation');
+const create = require('./createReminder');
 
-module.exports = (session, f) => {
+module.exports = (session, f, agenda) => {
+    let createReminder = create(session, agenda);
     return {
         send(request, response) {
             const {sessionId, context, entities} = request;
@@ -12,7 +14,7 @@ module.exports = (session, f) => {
                 return resolve();
             })
         },
-
+        createReminder,
         endConversation
     };
 };
