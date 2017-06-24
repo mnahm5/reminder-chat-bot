@@ -36,6 +36,11 @@ const createReminder = (session, agenda) => {
 
                 // call agenda to set a reminder
                 console.log(`Reminding user to ${context.task} at ${context.datetime}`);
+                agenda.now('createReminder', {
+                    fbid,
+                    datetime: context.datetime,
+                    task: context.task
+                });
             }
 
             // call agenda to set a reminder

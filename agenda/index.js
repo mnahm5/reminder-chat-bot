@@ -6,10 +6,12 @@ const agenda = new Agenda({
         address: MONGO_URI
     }
 });
-
+const createReminder = require('./createReminder');
 module.exports = (f) => {
     // define agenda jobs
 
+    //create reminder
+    createReminder(agenda, f);
 
     return agenda
 };
