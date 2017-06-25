@@ -25,7 +25,21 @@ module.exports = (agenda, f) => {
                     let runDate = moment.utc(nextRunAt);
                     let timeToEvent = rightNowUTC.to(runDate);
 
-                    f.txt(fbid, `${task.charAt(0).toUpperCase() + task.slice(1)} is due ${timeToEvent}`);
+                    //f.txt(fbid, `${task.charAt(0).toUpperCase() + task.slice(1)} is due ${timeToEvent}`);
+                    let data = {
+                        text: `${task.charAt(0).toUpperCase() + task.slice(1)} is due ${timeToEvent}`,
+                        buttons: [{
+                            type: 'postback',
+                            title: 'Cancel Reminder',
+                            payload: `{
+                                "schedule: "cancelReminder",
+                                "fbid": "${fbid}",
+                                "id": "${_id}"
+                            }`
+                        }]
+                    };
+
+                    f.btn(fbid, data);
                 })
             }
         });
